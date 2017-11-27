@@ -72,7 +72,8 @@ class HA_Sharrre {
     if ( is_singular() ) {
       wp_enqueue_script(
         'sharrre',
-        sprintf( '%1$saddons/assets/front/js/jQuerySharrre%2$s', HU_AD() -> ha_get_base_url(), (defined('CZR_DEV') && true === CZR_DEV) ? '.js' : '.min.js' ),
+        // sprintf( '%1$saddons/assets/front/js/jQuerySharrre%2$s', HU_AD() -> ha_get_base_url(), (defined('CZR_DEV') && true === CZR_DEV) ? '.js' : '.min.js' ),
+        sprintf( '%1$saddons/assets/front/js/jQuerySharrre%2$s', HU_AD() -> ha_get_base_url(), (defined('CZR_DEV') && true === CZR_DEV) ? '.js' : '.js' ),
         array( 'jquery' ),
         '',
         true
@@ -166,7 +167,16 @@ class HA_Sharrre {
             'type'      => 'checkbox',
             'priority'  => 100,
             'active_callback' => array( $this, 'ha_is_single')
-      )
+      ),
+      'sharrre-vkontakte-on' => array(
+            'default'   => 0,
+            'control'   => 'HU_controls',
+            'label'     => __('Enable VKontakte Button', 'hueman-addons'),
+            'section'   => 'content_single_sec',
+            'type'      => 'checkbox',
+            'priority'  => 100,
+            'active_callback' => array( $this, 'ha_is_single')
+      ),
     );
 
     return array_merge( $sharrre_settings, $settings );

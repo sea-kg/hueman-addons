@@ -79,6 +79,45 @@ var SharrrePlatform = SharrrePlatform || (function () {
             }
         };
     });
+    
+    SharrrePlatform.register("vkontakte", function (options) {
+        defaultSettings = { 
+            url: '',  //if you need to personalize url button
+            urlCount: false,  //if you want to use personnalize button url on global counter
+            counter: '',
+            enableCounter: false, // not support in current time
+            count: true,
+            popup: {
+                width: 550,
+                height: 550
+            }
+        };
+
+        defaultSettings = $.extend(true, {}, defaultSettings, options);
+        return {
+            settings: defaultSettings,
+            url: function (test) {
+                // return "https://vk.com/share.php?url={url}&title={title}&description=&image=&utm_source=share2";
+                return "";
+            },
+            trackingAction: {site: 'vkontakte', action: 'share'},
+            load: function (self) {
+                var sett = this.settings;
+                console.warn(self.element);
+                // $(self.element).find('.buttons').append('<div class="button vkontakte"><script type="IN/share" data-url="' + (sett.url !== '' ? sett.url : self.options.url) + '" data-counter="' + sett.counter + '"></script></div>');
+                 $(self.element).find('.vkontakte').on('click', function () {
+                    self.openPopup('vkontakte');
+                });
+            },
+            tracking: function () {
+            },
+            popup: function (opt) {
+                window.open('https://vk.com/share.php?url=' +
+                    encodeURIComponent((this.settings.url !== '' ? this.settings.url : opt.url)) +
+                    '&title=&description=&image=&utm_source=share2', 'vkontakte', 'toolbar=no, width=' + this.settings.popup.width + ", height=" + this.settings.popup.height);
+            }
+        };
+    });
 
 
     SharrrePlatform.register("facebook", function (options) {

@@ -15,6 +15,9 @@
   <?php if ( hu_is_checked('sharrre-linkedin-on') ) : ?>
     <div id="linkedin" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="<?php _e('Publish on Linked In', 'hueman-addons'); ?>"></div>
   <?php endif; ?>
+  <?php if ( hu_is_checked('sharrre-vkontakte-on') ) : ?>
+    <div id="vkontakte" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="<?php _e('Publish on Vkontakte', 'hueman-addons'); ?>"></div>
+  <?php endif; ?>
 </div><!--/.sharrre-container-->
 
 <script type="text/javascript">
@@ -105,7 +108,27 @@
               }
             });
         <?php endif; ?>
-
+        <?php if ( hu_is_checked('sharrre-vkontakte-on') ) : ?>
+			console.warn("init vkontakte")
+            $('#vkontakte').sharrre({
+              share: {
+                vkontakte: true
+              },
+              template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share" style="color: #5b88bd;"><i class="fa fa-vk"></i></div></a>',
+              enableHover: false,
+              enableTracking: true,
+              enableCounter: false,
+              buttons: {
+				vkontakte: {
+					description: '<?php echo the_title(); ?>'<?php if( has_post_thumbnail() ){ ?>,media: '<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>'<?php } ?>
+                }
+              },
+              click: function(api, options){
+                api.simulateClick();
+                api.openPopup('vkontakte');
+              }
+            });
+        <?php endif; ?>
     		<?php if ( hu_is_checked( 'sharrre-scrollable' ) ) : ?>
 
     			// Scrollable sharrre bar, contributed by Erik Frye. Awesome!

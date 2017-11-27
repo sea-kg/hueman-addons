@@ -6,7 +6,14 @@
 function ha_are_share_buttons_enabled() {
   if ( ! hu_is_checked('sharrre') )
     return;
-  if ( ! hu_is_checked('sharrre-twitter-on') && ! hu_is_checked('sharrre-facebook-on') && ! hu_is_checked('sharrre-google-on') && ! hu_is_checked('sharrre-pinterest-on') && ! hu_is_checked('sharrre-linkedin-on') )
+  if ( ! hu_is_checked('sharrre-twitter-on') 
+	&& ! hu_is_checked('sharrre-facebook-on') 
+	&& ! hu_is_checked('sharrre-google-on') 
+	&& ! hu_is_checked('sharrre-pinterest-on') 
+	&& ! hu_is_checked('sharrre-linkedin-on') 
+	&& ! hu_is_checked('sharrre-vkontakte-on') 
+	&& ! hu_is_checked('sharrre-telegram-on') 
+	&& ! hu_is_checked('sharrre-odnoklassniki-on') )
     return;
   return true;
 }
@@ -165,7 +172,7 @@ class HA_Sharrre {
             'label'     => __('Enable LinkedIn Button', 'hueman-addons'),
             'section'   => 'content_single_sec',
             'type'      => 'checkbox',
-            'priority'  => 100,
+            'priority'  => 110,
             'active_callback' => array( $this, 'ha_is_single')
       ),
       'sharrre-vkontakte-on' => array(
@@ -174,7 +181,25 @@ class HA_Sharrre {
             'label'     => __('Enable VKontakte Button', 'hueman-addons'),
             'section'   => 'content_single_sec',
             'type'      => 'checkbox',
-            'priority'  => 100,
+            'priority'  => 120,
+            'active_callback' => array( $this, 'ha_is_single')
+      ),
+      'sharrre-odnoklassniki-on' => array(
+            'default'   => 0,
+            'control'   => 'HU_controls',
+            'label'     => __('Enable Odnoklassniki Button', 'hueman-addons'),
+            'section'   => 'content_single_sec',
+            'type'      => 'checkbox',
+            'priority'  => 130,
+            'active_callback' => array( $this, 'ha_is_single')
+      ),
+      'sharrre-telegram-on' => array(
+            'default'   => 0,
+            'control'   => 'HU_controls',
+            'label'     => __('Enable Telegram Button', 'hueman-addons'),
+            'section'   => 'content_single_sec',
+            'type'      => 'checkbox',
+            'priority'  => 140,
             'active_callback' => array( $this, 'ha_is_single')
       ),
     );

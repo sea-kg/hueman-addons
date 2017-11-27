@@ -18,6 +18,12 @@
   <?php if ( hu_is_checked('sharrre-vkontakte-on') ) : ?>
     <div id="vkontakte" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="<?php _e('Publish on Vkontakte', 'hueman-addons'); ?>"></div>
   <?php endif; ?>
+  <?php if ( hu_is_checked('sharrre-odnoklassniki-on') ) : ?>
+    <div id="odnoklassniki" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="<?php _e('Publish on Odnoklassniki', 'hueman-addons'); ?>"></div>
+  <?php endif; ?>
+  <?php if ( hu_is_checked('sharrre-telegram-on') ) : ?>
+    <div id="telegram" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="<?php _e('Publish on Telegram', 'hueman-addons'); ?>"></div>
+  <?php endif; ?>
 </div><!--/.sharrre-container-->
 
 <script type="text/javascript">
@@ -28,7 +34,8 @@
         			share: {
         				twitter: true
         			},
-        			template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-twitter"></i></div></a>',
+        			// template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-twitter"></i></div></a>',
+        			template: '<a class="box" href="#"><div class="share"><i class="fa fa-twitter"></i></div></a>',
         			enableHover: false,
         			enableTracking: true,
         			buttons: { twitter: {via: '<?php echo esc_attr( hu_get_option("twitter-username") ); ?>'}},
@@ -43,7 +50,8 @@
         			share: {
         				facebook: true
         			},
-        			template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-facebook-square"></i></div></a>',
+        			// template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-facebook-square"></i></div></a>',
+        			template: '<a class="box" href="#"><div class="share"><i class="fa fa-facebook-square"></i></div></a>',
         			enableHover: false,
         			enableTracking: true,
               buttons:{layout: 'box_count'},
@@ -59,7 +67,8 @@
         			share: {
         				googlePlus: true
         			},
-        			template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a>',
+        			// template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a>',
+        			template: '<a class="box" href="#"><div class="share"><i class="fa fa-google-plus-square"></i></div></a>',
         			enableHover: false,
         			enableTracking: true,
               buttons:{size: 'tall'},
@@ -94,7 +103,8 @@
               share: {
                 linkedin: true
               },
-              template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-linkedin"></i></div></a>',
+              // template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-linkedin"></i></div></a>',
+              template: '<a class="box" href="#" rel="nofollow"><div class="share"><i class="fa fa-linkedin"></i></div></a>',
               enableHover: false,
               enableTracking: true,
               buttons: {
@@ -114,7 +124,8 @@
               share: {
                 vkontakte: true
               },
-              template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share" style="color: #5b88bd;"><i class="fa fa-vk"></i></div></a>',
+              // template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share" style="color: #5b88bd;"><i class="fa fa-vk"></i></div></a>',
+              template: '<a class="box" href="#" rel="nofollow"><div class="share" style="color: #5b88bd;"><i class="fa fa-vk"></i></div></a>',
               enableHover: false,
               enableTracking: true,
               enableCounter: false,
@@ -126,6 +137,48 @@
               click: function(api, options){
                 api.simulateClick();
                 api.openPopup('vkontakte');
+              }
+            });
+        <?php endif; ?>
+        <?php if ( hu_is_checked('sharrre-odnoklassniki-on') ) : ?>
+            $('#odnoklassniki').sharrre({
+              share: {
+                odnoklassniki: true
+              },
+              // template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share" style="color: #f58220;"><i class="fa fa-odnoklassniki"></i></div></a>',
+              template: '<a class="box" href="#" rel="nofollow"><div class="share" style="color: #f58220;"><i class="fa fa-odnoklassniki"></i></div></a>',
+              enableHover: false,
+              enableTracking: true,
+              enableCounter: false,
+              buttons: {
+				odnoklassniki: {
+					description: '<?php echo the_title(); ?>'<?php if( has_post_thumbnail() ){ ?>,media: '<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>'<?php } ?>
+                }
+              },
+              click: function(api, options){
+                api.simulateClick();
+                api.openPopup('odnoklassniki');
+              }
+            });
+        <?php endif; ?>
+        <?php if ( hu_is_checked('sharrre-telegram-on') ) : ?>
+            $('#telegram').sharrre({
+              share: {
+                telegram: true
+              },
+              // template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share" style="color: #30a7df;"><i class="fa fa-telegram"></i></div></a>',
+              template: '<a class="box" href="#" rel="nofollow"><div class="share" style="color: #30a7df;"><i class="fa fa-telegram"></i></div></a>',
+              enableHover: false,
+              enableTracking: true,
+              enableCounter: false,
+              buttons: {
+				telegram: {
+					description: '<?php echo the_title(); ?>'<?php if( has_post_thumbnail() ){ ?>,media: '<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>'<?php } ?>
+                }
+              },
+              click: function(api, options){
+                api.simulateClick();
+                api.openPopup('telegram');
               }
             });
         <?php endif; ?>

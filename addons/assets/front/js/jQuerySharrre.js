@@ -118,7 +118,84 @@ var SharrrePlatform = SharrrePlatform || (function () {
             }
         };
     });
+    
+    SharrrePlatform.register("odnoklassniki", function (options) {
+        defaultSettings = { 
+            url: '',  //if you need to personalize url button
+            urlCount: false,  //if you want to use personnalize button url on global counter
+            counter: '',
+            enableCounter: false, // not support in current time
+            count: true,
+            popup: {
+                width: 550,
+                height: 550
+            }
+        };
 
+        defaultSettings = $.extend(true, {}, defaultSettings, options);
+        return {
+            settings: defaultSettings,
+            url: function (test) {
+                // return "http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl={ссылка}&st.comments={комментарий}";
+                return "";
+            },
+            trackingAction: {site: 'odnoklassniki', action: 'share'},
+            load: function (self) {
+                var sett = this.settings;
+                console.warn(self.element);
+                // $(self.element).find('.buttons').append('<div class="button odnoklassniki"><script type="IN/share" data-url="' + (sett.url !== '' ? sett.url : self.options.url) + '" data-counter="' + sett.counter + '"></script></div>');
+                 $(self.element).find('.odnoklassniki').on('click', function () {
+                    self.openPopup('odnoklassniki');
+                });
+            },
+            tracking: function () {
+            },
+            popup: function (opt) {
+                window.open('http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=' +
+                    encodeURIComponent((this.settings.url !== '' ? this.settings.url : opt.url)) +
+                    '&st.comments=', 'odnoklassniki', 'toolbar=no, width=' + this.settings.popup.width + ", height=" + this.settings.popup.height);
+            }
+        };
+    });
+    
+    SharrrePlatform.register("telegram", function (options) {
+        defaultSettings = { 
+            url: '',  //if you need to personalize url button
+            urlCount: false,  //if you want to use personnalize button url on global counter
+            counter: '',
+            enableCounter: false, // not support in current time
+            count: true,
+            popup: {
+                width: 550,
+                height: 550
+            }
+        };
+
+        defaultSettings = $.extend(true, {}, defaultSettings, options);
+        return {
+            settings: defaultSettings,
+            url: function (test) {
+                // return "https://t.me/share/url?url=";
+                return "";
+            },
+            trackingAction: {site: 'telegram', action: 'share'},
+            load: function (self) {
+                var sett = this.settings;
+                console.warn(self.element);
+                // $(self.element).find('.buttons').append('<div class="button odnoklassniki"><script type="IN/share" data-url="' + (sett.url !== '' ? sett.url : self.options.url) + '" data-counter="' + sett.counter + '"></script></div>');
+                 $(self.element).find('.telegram').on('click', function () {
+                    self.openPopup('telegram');
+                });
+            },
+            tracking: function () {
+            },
+            popup: function (opt) {
+                window.open('https://t.me/share/url?url=' +
+                    encodeURIComponent((this.settings.url !== '' ? this.settings.url : opt.url)) +
+                    '', 'telegram', 'toolbar=no, width=' + this.settings.popup.width + ", height=" + this.settings.popup.height);
+            }
+        };
+    });
 
     SharrrePlatform.register("facebook", function (options) {
         defaultSettings = { //http://developers.facebook.com/docs/reference/plugins/like/
